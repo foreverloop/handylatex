@@ -1,0 +1,80 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{multirow}
+\newcolumntype{W}{>{\centering\arraybackslash} m{1cm} }
+\title{My template}
+\author{Insert Your name}
+\date{\today}
+%end preamble
+\begin{document}
+\maketitle
+\section{Graphics}
+\section{The linear regression model}
+\subsection{In line equations}
+\label{sect.myfirst}
+Writing symbols such as $Y$, $X$ or $\boldsymbol{\beta}$ is easy. I can
+even create a whole in-line formula, such as $Y=X\beta+\epsilon$, or even better
+$\textbf{Y}=X\boldsymbol{\beta}+\boldsymbol{\epsilon}$. To create spaces,
+I can use the $\sim$ symbol: for instance $~~X\boldsymbol\beta~~$ has more
+space than $X\boldsymbol\beta$.
+\subsection{Full line equations}
+\subsubsection{Numbered equations}
+\subsubsection*{This section is not numbered}
+Nothing to see here... yet!
+\section{Text formatting}
+In Section \ref{sect.myfirst} we looked at in line equations.
+Good?\\ Keep these lines or exercises in a few
+sections time will not make sense!
+\section{Tables and Arrays}
+Here is a table.
+\begin{center}
+\begin{tabular}{r|cl} %pipe adds a separator line for tabular
+%& used to move the headers around the vertical seperator
+%double \\ tells to add a carriage return
+number ($x$) & $x^2$ & reciprocal ($1/x$)\\
+\hline %adds horizontal
+1 & 1 & 1\\
+2 & 4 & 0.5
+
+\end{tabular}
+\end{center}
+There was a table.
+
+Here is a table.\\
+It’s a very happy table.
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{r|cl}
+number $x$ & square $x^2$ & reciprocal $1/x$\\
+\hline
+1 & 1 & 1\\
+\hline
+2 & 4 & 0.5\\
+\end{tabular}
+\end{center}
+\caption{A few numbers and powers.}
+\label{tab.myfirst}
+\end{table}
+There was  table \ref{tab.myfirst}.
+
+Below is the exercise 5 table:\\
+\newline
+\begin{table}[h]
+\begin{tabular}{c|c|c}
+\multicolumn{3}{c}{Table 1: Example of table with multi column and multi row} \\
+\hline
+\multirow{2}{*}{} Method & Sample Size & Prob to select $\boldsymbol{M}$ variables \\
+& & \textit{M=1 M=2 M=3 M=4} \\
+\hline
+& Scenario 1: Two Correct Variables \\
+\hline
+\multirow{2}{*}{} The Best Method & 100 & 50\% 50\% 0\% 0\%  \\
+& 200 & 75\% 25\% 0\% 0\% \\
+\hline
+\multirow{2}{*}{} The Worst Method & 200 & 0\% 0\% 50\% 50\% \\
+& 200 & 0\% 0\% 25\% 75\% \\
+\hline
+
+\end{tabular}
+\end{table}
