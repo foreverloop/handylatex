@@ -1,0 +1,148 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\graphicspath{ {images/} }
+
+\begin{document}
+
+\title{
+  Exploratory Data Analysis and Linear Models \\
+  \large for the Blackbird Data Set \\
+}
+
+\author{Student Number: 35059062 \\ 
+Msc Data Science, SCC461}
+
+\maketitle
+
+\textbf{abstract}\\
+Data has been recorded for a population of Blackbirds captured in the same garden in the East Midlands of England over a 25-year period. An initial Exploratory Data Analysis (EDA) will be performed on this data set in order to gain a deeper insight into the demographic of this population of Blackbirds. \\
+
+Techniques which will be used include Correlation testing to see which features have a strong correlation score with the ‘Wing’ feature, various visualisation techniques such as scatter plots and pie plots, and techniques developed to summarize information about the data such as a frequency count for the number of times which the same bird is recorded. There will also be some efforts to replace missing values in the data using a simple imputation technique so that it may be modeled later. \\
+
+The above discussed preliminary analysis and preparation will be performed with a view to eventually investigate which features within the data best explain the variation in the size of individuals in this population of Blackbirds. The ‘Wing’ feature was chosen as it gives a good approximation for the overall size of a blackbird. For this task, several linear regression models with varying input parameters will be applied to the data and their effectiveness will be compared.  
+
+\section{Introduction}
+Introduction 
+
+There are many methods and options for people interested in exploring data today. In this paper, several straightforward and practical techniques for looking at correlation (Spearman’s Rank Correlation Coefficient and Pearson’s Product-moment Correlation Coefficient), summarisation (frequency counts and summary statistics for relevant features) and visualisation of data (Using matplotlib and seaborn python libraries) will be demonstrated. Finally, a single feature linear regression model and a multi feature linear regression model will be used to estimate the strength of the most highly correlated independent features, with regards to how well they are able to estimate the dependent feature. 
+
+The primary aim of this paper is to evaluate and explore the Blackbird data set, in order to find the features in the data which best predict the size of an individual Blackbird in this population, but the intention is that the techniques and methods demonstrated in this paper and the code contained in the appendix can be generalised to other similar questions.  
+\section{Methods and Techniques Used}
+Spearman's Rank Correlation Coefficient is defined as below. This was used as one method to check the correlation of other features against the 'Wing' feature. Pearson's correlation (later described) was also used to compare the two results to see if it makes sense.
+
+Spearman's correlation works best with ordinal data. [ref1]
+
+\begin{equation}
+r_s = 1 - \frac{6\cdot \sum D^2}{n(n^2 - 1)}
+\end{equation}
+
+Pearson's Product-Moment Correlation Coefficient is defined as below:
+This was used as one method to check the correlation of other features against the 'Wing' feature.
+
+Pearsons correlation works best for data which in on an interval. [ref2]
+\begin{equation}
+r = \frac{ n\sum(xy)- (\sum x)(\sum y) }{%
+        \sqrt{[n( \sum x^2) -\sum(x)^2][n (\sum y^2) -\sum(y)^2]}}
+\end{equation}
+
+Variance (and hence Standard deviation if the square root is taken):
+
+\begin{equation}
+    \sigma^2 = \frac{\displaystyle\sum(x_i - \mu)^2} {n}
+\end{equation}
+
+The simple linear regression model (for a single variable)
+is given by the below equation [ref3] joel grouse, data science from scratch:
+\begin{equation}
+    y_i = \beta x_i + \alpha + \epsilon_i
+\end{equation}
+
+Multiple regression is similar to linear regression,
+but each $x_i$ value is a vector instead of a single value
+[ref3] joel grouse, data science from scratch
+\begin{equation}
+    y_i = \alpha + \beta_1 x_{i1} + ... + \beta_k x_{ik} + \epsilon_i
+\end{equation}
+
+matplotlib, seaborn, pandas and python imputation
+
+
+
+\section{Analysis}
+The first methods to be used in this EDA were to test if any data was missing from the columns (using python), and if so to complete a count of them. Only the 'Wing' and 'Weight' features were missing data. Below is a table with a breakdown of what was missing.\\
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{c|c}
+
+Feature & Missing Count\\
+\hline
+wing & 251\\
+\hline
+weight & 40\\
+\hline
+Total & 291
+\end{tabular}
+\end{center}
+\caption{Breakdown of missing figures out of 4123 data points}
+\label{tab.myfirst}
+\end{table}
+
+It is worth mentioning that in this instance missing data was imputed by using the mean value for the 'Wing' feature. While appropriate imputation techniques and their impact on predictive values of models is worth wider discussion, as noted by [ref], there is unfortunately no time to enter that discussion in this paper.\\
+
+Next, some pie charts were produced in order to get a better view of how the age and gender of the birds captured is segmented.\\
+
+\begin{figure}[hbt!]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{age_categ_breakdown.png}
+         \caption{Age category breakdown}
+         \label{fig:aAge category breakdown}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{gender_categ_breakdown.png}
+         \caption{Gender category breakdown}
+         \label{fig:Gender category breakdown}
+     \end{subfigure}
+     \hfill
+    \caption{Pie charts showing the breakdown of the 'Age' and 'Sex' variables. The age labels have the following meanings F (first year), J (Juvenile), A (Adult), U (Unknown). The Genders are F (Female), M (Male) and U (Unknown).}
+    \label{fig:three graphs}
+\end{figure}
+
+Correlation graphs and tables were produced using Spearman's correlation and Pearson's correlation. See the Figures below for details.
+\begin{figure}
+    \centering
+    \includegraphics{spearman_correlations.png}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{blackbird_pearson.png}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+After these correlation results, the 'Weight','Age' and 'Sex' features Warranted further investigation. Of the three however, only weight is a continuous value with 'Age' and 'Sex' being categorical. A scatter plot was produced for Weight against Wing Size, simply as a means to visualise this relationship. 
+
+%\includegraphics[width=\textwidth]{weight_wing_scatter.png}
+
+Finally, both a simple linear regression model and a multiple linear regression model were used in order to evaluate the strength of the main correlated features in terms of their ability to predict the dependent variable. a table showing the coefficients for both, and a plot showing the line of best fit for this can be seen below:
+
+%\includegraphics[width=\textwidth]{blackbird_linear_regression.png}
+
+\section{Conclusion}
+
+\section{References}
+\textbf{Appendix}
+
+\end{document}
